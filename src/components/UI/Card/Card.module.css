@@ -1,0 +1,12 @@
+.card {
+    max-width: 60rem;
+    margin: 0 auto;
+    border-radius: 1rem;
+    background: #e4e1e1;
+    box-shadow: 0 2px 5px 1px rgba(255, 255, 255, 0.22);
+    padding: 3rem 2rem;
+}
+
+.mb-sm {
+    margin-top: 5rem;
+}
