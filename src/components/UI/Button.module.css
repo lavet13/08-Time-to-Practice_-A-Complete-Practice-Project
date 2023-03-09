@@ -1,0 +1,21 @@
+.button {
+    display: inline-block;
+    padding: 1.25rem 2.5rem;
+    margin-left: auto;
+
+    border: none;
+    border-radius: 0.2rem;
+    background: #f8f8f8;
+    font-weight: 500;
+    font-family: inherit;
+    cursor: pointer;
+    box-shadow: 0 3px 4px rgba(0, 0, 0, 0.2);
+}
+
+.button:hover {
+    background: #f0f0f0;
+}
+
+.button:active {
+    background: #ebebeb;
+}
