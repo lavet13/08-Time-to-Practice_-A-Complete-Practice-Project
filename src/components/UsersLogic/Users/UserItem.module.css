@@ -1,0 +1,28 @@
+.li {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-around;
+    align-self: stretch;
+    padding: 1rem;
+    background: #d9d9d9;
+    cursor: pointer;
+    border-top: 1px solid #ccc;
+    user-select: none;
+}
+
+.li:hover {
+    background: #f3f3f3;
+}
+
+.li:active {
+    background: #eaeaea;
+}
+
+.li:nth-child(1) {
+    border-top: none;
+}
+
+.li span {
+    font-size: 1.6rem;
+    font-weight: 500;
+}

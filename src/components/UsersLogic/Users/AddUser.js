@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import Button from '../UI/Button';
-import Card from '../UI/Card';
+import Button from '../../UI/Button';
+import Card from '../../UI/Card';
 import styles from './AddUser.module.css';
 
-const AddUser = () => {
+const AddUser = ({ onAddUser, onShowErrorMessage, onSaveErrorMessage }) => {
     const [enteredUsername, setEnteredUsername] = useState('');
     const [enteredAge, setEnteredAge] = useState('');
 
@@ -26,33 +26,38 @@ const AddUser = () => {
     const addUserHandler = e => {
         e.preventDefault();
 
-        if (enteredUsername.trim().length === 0) {
+        const isNotValidUsername = enteredUsername.trim().length === 0;
+        if (isNotValidUsername) {
             setIsValidUsername(false);
+            onShowErrorMessage();
+            onSaveErrorMessage("Username wasn't specified!");
         }
 
-        if (
-            !Number.isFinite(+enteredAge) ||
-            (Number.isFinite(+enteredAge) && !(enteredAge > 0))
-        ) {
+        const ageIsNotANumber = !Number.isFinite(+enteredAge);
+        const ageIsNotGreaterThanZero =
+            Number.isFinite(+enteredAge) && !(enteredAge > 0);
+        const isNotValidAge = ageIsNotANumber || ageIsNotGreaterThanZero;
+
+        if (isNotValidAge) {
             setIsValidAge(false);
+            onShowErrorMessage();
+            if (ageIsNotANumber) onSaveErrorMessage("Age isn't a number!");
+            if (ageIsNotGreaterThanZero)
+                onSaveErrorMessage('Age must be greater than zero!');
         }
 
-        if (
-            !Number.isFinite(+enteredAge) ||
-            (Number.isFinite(+enteredAge) && !(enteredAge > 0)) ||
-            enteredUsername.trim().length === 0
-        )
-            return;
+        if (isNotValidAge || isNotValidUsername) return;
 
-        const enteredData = {
+        const enteredUserData = {
+            id: Math.random().toString(),
             username: enteredUsername.trim(),
-            age: Number.parseInt(enteredAge),
+            age: +enteredAge,
         };
 
         setEnteredAge('');
         setEnteredUsername('');
 
-        console.log(enteredData);
+        onAddUser(enteredUserData);
     };
 
     return (

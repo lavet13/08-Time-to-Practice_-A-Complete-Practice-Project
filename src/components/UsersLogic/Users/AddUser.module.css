@@ -2,7 +2,6 @@
 .controls {
     display: flex;
     flex-flow: row wrap;
-    justify-content: space-between;
     row-gap: 1.5rem;
     column-gap: 1rem;
 }
@@ -46,8 +45,13 @@
 }
 
 .invalid input {
+    color: white;
     border-color: red;
     background: #ff5c5c;
+}
+
+.invalid input::placeholder {
+    color: white;
 }
 
 .invalid input:focus {
@@ -57,16 +61,20 @@
 /* Card */
 /* ////////////////////////////////////// */
 .card {
-    max-width: 60rem;
-    margin: 0 auto;
-    padding: 3rem 2rem;
     margin-top: 5rem;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
 }
 /* ////////////////////////////////////// */
 
 /* Button */
 /* ////////////////////////////////////// */
-@media only screen and (max-width: 33.625em) {
+
+.button {
+    margin-left: auto;
+}
+
+@media only screen and (max-width: 35.5em) {
     .button {
         width: 100%;
         white-space: nowrap;

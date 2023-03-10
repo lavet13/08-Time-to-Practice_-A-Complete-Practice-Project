@@ -2,4 +2,14 @@
     border-radius: 0.2rem;
     background: #e4e1e1;
     box-shadow: 0 2px 5px rgba(255, 255, 255, 0.22);
+
+    max-width: 60rem;
+    margin: 0 auto;
+    padding: 3rem 2rem;
+}
+
+@media only screen and (max-width: 37.5em) {
+    .card {
+        margin: 0 1.5rem;
+    }
 }
