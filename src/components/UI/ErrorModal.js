@@ -11,8 +11,8 @@ const ErrorModal = ({ isError, onCloseErrorMessage, message }) => {
 
     return (
         <div
-            className={`${styles.modal} ${
-                !isError ? otherStyles.hidden : ''
+            className={`${styles.modal} ${!isError ? otherStyles.hidden : ''} ${
+                isError ? styles.fadeIn : ''
             }`.trim()}
         >
             <Button onClick={errorHandler} className={styles.button}>

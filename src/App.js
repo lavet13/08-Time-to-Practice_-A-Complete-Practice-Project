@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import styles from './App.module.css';
 import UsersLogic from './components/UsersLogic/UsersLogic';
-import Overlay from './components/Overlay/Overlay';
-import ErrorModal from './components/ErrorModal/ErrorModal';
+import Overlay from './components/UI/Overlay';
+import ErrorModal from './components/UI/ErrorModal';
 
 function App() {
     const [isError, setIsError] = useState(false);

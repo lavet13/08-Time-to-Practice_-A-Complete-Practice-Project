@@ -8,9 +8,8 @@
     left: 0;
     z-index: 1000;
     background: rgba(0, 0, 0, 0.2);
-    backdrop-filter: blur(2px);
 
-    transition: 0.2s all;
+    transition: 0.05s all;
 }
 
 .hidden {
