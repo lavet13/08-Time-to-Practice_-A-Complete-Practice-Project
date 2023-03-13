@@ -19,6 +19,7 @@
     font-weight: 600;
     white-space: nowrap;
     flex: 0 0 10%;
+    user-select: none;
 }
 
 .control input {

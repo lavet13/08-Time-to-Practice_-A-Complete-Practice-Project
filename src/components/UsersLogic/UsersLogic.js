@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import AddUser from './Users/AddUser';
 import UsersList from './Users/UsersList';
-import ErrorModal from '../UI/ErrorModal';
 
 const UsersLogic = () => {
     const addUserHandler = enteredUserData => {
@@ -16,26 +15,15 @@ const UsersLogic = () => {
 
     const [usersList, setUsersList] = useState([]);
 
-    /////////////////////////////////////////////////////
-    const [error, setError] = useState(null);
-
-    const showErrorMessageHandler = message => {
-        setError({ message });
-    };
-
-    const closeErrorMessageHandler = () => {
-        setError(null);
-    };
-
+    // We have a wrapping element, sure it's an element which won't render anything
+    // to the DOM, but the requirement is not that there must be one root component
+    // being rendered to the DOM. The requirement just is that there must be one root
+    // element that you return or that you store in a constant or variable
     return (
-        <div>
-            <AddUser
-                onAddUser={addUserHandler}
-                onShowErrorMessage={showErrorMessageHandler}
-            />
+        <>
+            <AddUser onAddUser={addUserHandler} />
             <UsersList onDeleteUser={deleteUserHandler} users={usersList} />
-            <ErrorModal onConfirm={closeErrorMessageHandler} error={error} />
-        </div>
+        </>
     );
 };
 

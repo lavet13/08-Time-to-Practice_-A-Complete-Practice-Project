@@ -1,9 +1,15 @@
 import React, { useState } from 'react';
 import Button from '../../UI/Button';
 import Card from '../../UI/Card';
+import ErrorModal from '../../UI/ErrorModal';
 import styles from './AddUser.module.css';
 
-const AddUser = ({ onAddUser, onShowErrorMessage }) => {
+const AddUser = ({ onAddUser }) => {
+    const [error, setError] = useState(null);
+    const errorHandler = () => {
+        setError(null);
+    };
+
     const [enteredUsername, setEnteredUsername] = useState('');
     const [enteredAge, setEnteredAge] = useState('');
 
@@ -29,7 +35,7 @@ const AddUser = ({ onAddUser, onShowErrorMessage }) => {
         const isNotValidUsername = enteredUsername.trim().length === 0;
         if (isNotValidUsername) {
             setIsValidUsername(false);
-            onShowErrorMessage("Username wasn't specified!");
+            setError({ message: "Username wasn't specified!" });
         }
 
         const ageIsNotANumber = !Number.isFinite(+enteredAge);
@@ -39,9 +45,9 @@ const AddUser = ({ onAddUser, onShowErrorMessage }) => {
 
         if (isNotValidAge) {
             setIsValidAge(false);
-            if (ageIsNotANumber) onShowErrorMessage("Age isn't a number!");
+            if (ageIsNotANumber) setError({ message: "Age isn't a number!" });
             if (ageIsNotGreaterThanZero)
-                onShowErrorMessage('Age must be greater than zero!');
+                setError({ message: 'Age must be greater than zero!' });
         }
 
         if (isNotValidAge || isNotValidUsername) return;
@@ -59,47 +65,50 @@ const AddUser = ({ onAddUser, onShowErrorMessage }) => {
     };
 
     return (
-        <Card className={styles.card}>
-            <form onSubmit={addUserHandler}>
-                <div className={styles.controls}>
-                    <div
-                        className={`${styles.control} ${
-                            !isValidUsername ? styles.invalid : ''
-                        }`.trim()}
-                    >
-                        <label htmlFor="username">Username</label>
-                        <input
-                            id="username"
-                            onChange={usernameInputHandler}
-                            value={enteredUsername}
-                            type="text"
-                            placeholder="Enter a username"
-                        />
-                    </div>
+        <>
+            {error && <ErrorModal onConfirm={errorHandler} error={error} />}
+            <Card className={styles.card}>
+                <form onSubmit={addUserHandler}>
+                    <div className={styles.controls}>
+                        <div
+                            className={`${styles.control} ${
+                                !isValidUsername ? styles.invalid : ''
+                            }`.trim()}
+                        >
+                            <label htmlFor="username">Username</label>
+                            <input
+                                id="username"
+                                onChange={usernameInputHandler}
+                                value={enteredUsername}
+                                type="text"
+                                placeholder="Enter a username"
+                            />
+                        </div>
 
-                    <div
-                        className={`${styles.control} ${
-                            !isValidAge ? styles.invalid : ''
-                        }`.trim()}
-                    >
-                        <label htmlFor="age">Age (Years)</label>
-                        <input
-                            id="age"
-                            onChange={ageInputHandler}
-                            value={enteredAge}
-                            type="number"
-                            placeholder="Enter an age"
-                        />
-                    </div>
+                        <div
+                            className={`${styles.control} ${
+                                !isValidAge ? styles.invalid : ''
+                            }`.trim()}
+                        >
+                            <label htmlFor="age">Age (Years)</label>
+                            <input
+                                id="age"
+                                onChange={ageInputHandler}
+                                value={enteredAge}
+                                type="number"
+                                placeholder="Enter an age"
+                            />
+                        </div>
 
-                    <div className={styles.control}>
-                        <Button className={styles.button} type="submit">
-                            Add User
-                        </Button>
+                        <div className={styles.control}>
+                            <Button className={styles.button} type="submit">
+                                Add User
+                            </Button>
+                        </div>
                     </div>
-                </div>
-            </form>
-        </Card>
+                </form>
+            </Card>
+        </>
     );
 };
 
