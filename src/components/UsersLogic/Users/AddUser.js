@@ -3,7 +3,7 @@ import Button from '../../UI/Button';
 import Card from '../../UI/Card';
 import styles from './AddUser.module.css';
 
-const AddUser = ({ onAddUser, onShowErrorMessage, onSaveErrorMessage }) => {
+const AddUser = ({ onAddUser, onShowErrorMessage }) => {
     const [enteredUsername, setEnteredUsername] = useState('');
     const [enteredAge, setEnteredAge] = useState('');
 
@@ -29,8 +29,7 @@ const AddUser = ({ onAddUser, onShowErrorMessage, onSaveErrorMessage }) => {
         const isNotValidUsername = enteredUsername.trim().length === 0;
         if (isNotValidUsername) {
             setIsValidUsername(false);
-            onShowErrorMessage();
-            onSaveErrorMessage("Username wasn't specified!");
+            onShowErrorMessage("Username wasn't specified!");
         }
 
         const ageIsNotANumber = !Number.isFinite(+enteredAge);
@@ -40,10 +39,9 @@ const AddUser = ({ onAddUser, onShowErrorMessage, onSaveErrorMessage }) => {
 
         if (isNotValidAge) {
             setIsValidAge(false);
-            onShowErrorMessage();
-            if (ageIsNotANumber) onSaveErrorMessage("Age isn't a number!");
+            if (ageIsNotANumber) onShowErrorMessage("Age isn't a number!");
             if (ageIsNotGreaterThanZero)
-                onSaveErrorMessage('Age must be greater than zero!');
+                onShowErrorMessage('Age must be greater than zero!');
         }
 
         if (isNotValidAge || isNotValidUsername) return;
