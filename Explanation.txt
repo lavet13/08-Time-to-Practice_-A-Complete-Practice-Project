@@ -1,0 +1,29 @@
+How do refs work? With refs, we can set up connection between a HTML element which is being rendered in the end
+and our other JavaScript code.
+Rarely use refs to manipulate the DOM.
+You will sometimes have use cases where you just want to quickly read a value, for example. And if you only want to read
+a value and you never plan on changing anything, well, then you don't really need state because just to use state as a
+keylogger is not that great. It's a lot of unnecessary code and work. So if you just want to read a value,
+refs are probably better.
+It's up to you what you prefer. Refs, which are a little bit less code but you have this edge case of manipulating the DOM,
+or a state, which is definitely cleaner but is a bit more code.
+
+Controlled vs Uncontrolled Components
+This approach of using refs to interact with DOM elements specifically with input elements also has a special name.
+We're talking about UNCONTROLLED components if we access values with a ref. So these built-in input components
+would now be uncontrolled components. Why uncontrolled? Because they're internal state, so the value which is reflected
+in them is not controlled by React. We rely on the default behavior of the input where a user of course is able to
+enter something and that entered value is reflected. And we then just fetch it, YES with a React feature, BUT we don't
+feed data back into the input. When I set a new value to those inputs here with that clearing the inputs, we're absolutely
+not using React here. Sure we're using the ref, but in the end we get access to the native DOM element with that and then
+just use the regular DOM API for setting the value of a input DOM node. So that's why this is uncontrolled, because
+we're not controlling these state of the input element with React.
+Now, you can talk about uncontrolled and controlled components. Also in the context of other components but most commonly
+we have this scenario when we talk about input components about form components in general, because those components
+tend to have some internal state natively by the browser, an input element is configured to take user input and save and
+reflect it. And when we then work with those components in the React App we wanna connect our React state to that. That's
+why we typically have this controlled uncontrolled thing when we work with input components in React.
+And when we use refs, like we're doing it here, we have uncontrolled input components. The approach we had before,
+where we manage our state and we updated that state on every keystroke and we fetched that state back into the input
+with the value prop, so that approach we had before we added refs, that would be the CONTROLLED approach. Then we would say
+that those input fields are CONTROLLED components because their internal state is CONTROLLED by React.

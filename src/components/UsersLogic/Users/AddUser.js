@@ -1,50 +1,35 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import Button from '../../UI/Button';
 import Card from '../../UI/Card';
 import ErrorModal from '../../UI/ErrorModal';
 import styles from './AddUser.module.css';
 
 const AddUser = ({ onAddUser }) => {
+    const nameInputRef = useRef();
+    const ageInputRef = useRef();
+
     const [error, setError] = useState(null);
     const errorHandler = () => {
         setError(null);
     };
 
-    const [enteredUsername, setEnteredUsername] = useState('');
-    const [enteredAge, setEnteredAge] = useState('');
-
-    const [isValidUsername, setIsValidUsername] = useState(true);
-    const [isValidAge, setIsValidAge] = useState(true);
-
-    const usernameInputHandler = e => {
-        if (e.target.value.trim().length > 0) setIsValidUsername(true);
-
-        setEnteredUsername(e.target.value);
-    };
-
-    const ageInputHandler = e => {
-        if (Number.isFinite(+e.target.value) && +e.target.value > 0)
-            setIsValidAge(true);
-
-        setEnteredAge(e.target.value);
-    };
-
     const addUserHandler = e => {
+        const enteredName = nameInputRef.current.value;
+        const enteredUserAge = ageInputRef.current.value;
+
         e.preventDefault();
 
-        const isNotValidUsername = enteredUsername.trim().length === 0;
+        const isNotValidUsername = enteredName.trim().length === 0;
         if (isNotValidUsername) {
-            setIsValidUsername(false);
             setError({ message: "Username wasn't specified!" });
         }
 
-        const ageIsNotANumber = !Number.isFinite(+enteredAge);
+        const ageIsNotANumber = !Number.isFinite(+enteredUserAge);
         const ageIsNotGreaterThanZero =
-            Number.isFinite(+enteredAge) && !(enteredAge > 0);
+            Number.isFinite(+enteredUserAge) && !(enteredUserAge > 0);
         const isNotValidAge = ageIsNotANumber || ageIsNotGreaterThanZero;
 
         if (isNotValidAge) {
-            setIsValidAge(false);
             if (ageIsNotANumber) setError({ message: "Age isn't a number!" });
             if (ageIsNotGreaterThanZero)
                 setError({ message: 'Age must be greater than zero!' });
@@ -54,12 +39,12 @@ const AddUser = ({ onAddUser }) => {
 
         const enteredUserData = {
             id: Math.random().toString(),
-            username: enteredUsername.trim(),
-            age: +enteredAge,
+            username: enteredName.trim(),
+            age: +enteredUserAge,
         };
 
-        setEnteredAge('');
-        setEnteredUsername('');
+        nameInputRef.current.value = '';
+        ageInputRef.current.value = '';
 
         onAddUser(enteredUserData);
     };
@@ -70,33 +55,23 @@ const AddUser = ({ onAddUser }) => {
             <Card className={styles.card}>
                 <form onSubmit={addUserHandler}>
                     <div className={styles.controls}>
-                        <div
-                            className={`${styles.control} ${
-                                !isValidUsername ? styles.invalid : ''
-                            }`.trim()}
-                        >
+                        <div className={styles.control}>
                             <label htmlFor="username">Username</label>
                             <input
                                 id="username"
-                                onChange={usernameInputHandler}
-                                value={enteredUsername}
                                 type="text"
                                 placeholder="Enter a username"
+                                ref={nameInputRef}
                             />
                         </div>
 
-                        <div
-                            className={`${styles.control} ${
-                                !isValidAge ? styles.invalid : ''
-                            }`.trim()}
-                        >
+                        <div className={styles.control}>
                             <label htmlFor="age">Age (Years)</label>
                             <input
                                 id="age"
-                                onChange={ageInputHandler}
-                                value={enteredAge}
                                 type="number"
                                 placeholder="Enter an age"
+                                ref={ageInputRef}
                             />
                         </div>
 
