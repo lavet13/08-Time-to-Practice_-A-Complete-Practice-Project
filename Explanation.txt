@@ -25,5 +25,5 @@ reflect it. And when we then work with those components in the React App we wann
 why we typically have this controlled uncontrolled thing when we work with input components in React.
 And when we use refs, like we're doing it here, we have uncontrolled input components. The approach we had before,
 where we manage our state and we updated that state on every keystroke and we fetched that state back into the input
-with the value prop, so that approach we had before we added refs, that would be the CONTROLLED approach. Then we would say
+with the value prop, so that approach we had before that would be the CONTROLLED approach. Then we would say
 that those input fields are CONTROLLED components because their internal state is CONTROLLED by React.
